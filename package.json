@@ -1,10 +1,11 @@
 {
   "name": "@saphocom/auth0-plugin-cordova",
-  "version": "0.0.1",
-  "description": "auth0.js plugin for auth flow handling in Cordova environment.  ",
+  "version": "0.2.0",
+  "description": "auth0.js plugin for auth flow handling in Cordova environment.",
   "keywords": [
     "auth0",
-    "cordova"
+    "cordova",
+    "SafariViewController"
   ],
   "main": "lib/index.js",
   "repository": "https://github.com/saphocom/auth0-plugin-cordova",
@@ -13,19 +14,21 @@
   "peerDependencies": {
     "auth0-js": "^8.12.0"
   },
-  "dependencies": {
-    "url-join": "^2.0.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1"
+    "babel-preset-es2015": "^6.24.1",
+    "prettier": "1.10.2"
   },
   "scripts": {
-    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
-    "dev": "node_modules/babel-cli/bin/babel.js src --out-dir lib --watch"
+    "prepublish": "prettier --write 'src/**/*.js' && babel src --out-dir lib",
+    "dev": "babel src --out-dir lib --watch",
+    "pretty": "prettier --write 'src/**/*.js'"
   },
   "babel": {
-    "presets": ["es2015"]
+    "presets": [
+      "es2015"
+    ]
   }
 }

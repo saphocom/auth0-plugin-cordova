@@ -1,13 +1,18 @@
-import version from "auth0-js/src/version";
-import PluginHandler from "./PluginHandler";
-import BrowserViewHandler from "./BrowserViewHandler";
+import version from 'auth0-js/src/version';
+import BrowserHandler from './BrowserHandler';
 
-export default class Auth0JsPluginCordova {
+export default class Auth0PluginCordova {
   constructor() {
     this.webAuth = null;
-    this.pluginHandler = null;
     this.version = version.raw;
-    this.extensibilityPoints = ["popup.authorize", "popup.getPopupHandler"];
+    this.extensibilityPoints = ['popup.authorize', 'popup.getPopupHandler'];
+  }
+
+  /**
+   * @param {string} url
+   */
+  static finishAuth(url) {
+    return BrowserHandler.finishAuth(url);
   }
 
   /**
@@ -23,23 +28,31 @@ export default class Auth0JsPluginCordova {
   supports(extensibilityPoint) {
     return (
       window &&
-      (window.cordova || !!window.electron) &&
+      (window.cordova || window.electron) &&
       this.extensibilityPoints.indexOf(extensibilityPoint) > -1
     );
   }
 
   /**
-   * @returns {PluginHandler}
+   * @returns {Auth0PluginCordova}
    */
   init() {
-    if (!this.pluginHandler) {
-      this.pluginHandler = new PluginHandler(this.webAuth);
-    }
-
-    return this.pluginHandler;
+    return this;
   }
 
-  static finishAuth(url) {
-    return BrowserViewHandler.finishAuth(url);
+  /**
+   * @param {Object} params
+   * @returns {Object} Modified params
+   */
+  processParams(params) {
+    delete params.owp;
+    return params;
+  }
+
+  /**
+   * @returns {BrowserViewHandler}
+   */
+  getPopupHandler() {
+    return new BrowserHandler(this.webAuth);
   }
 }

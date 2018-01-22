@@ -11,7 +11,7 @@ Plugged in native browser (Chrome Custom Tab / Safari View Controller) instead o
 
 ## Usage 
 ```javascript
-import Auth0JsPluginCordova from '@saphocom/auth0-js-plugin-cordova';
+import Auth0PluginCordova from '@saphocom/auth0-plugin-cordova';
 
 var lock = new Auth0Lock(clientId, domain, {
     auth: {
@@ -19,13 +19,14 @@ var lock = new Auth0Lock(clientId, domain, {
         redirectUrl: "myapp://auth0/login",
         responseType: 'code',
     },
-    plugins: [new Auth0JsPluginCordova()],
+    plugins: [new Auth0PluginCordova()],
 });
 
 lock.show();
 
 // ...
 
+// Register cordova-plugin-customurlscheme handler 
 function handleOpenURL(url) {
     if (url.startsWith("myapp://auth0/login")) {
         Auth0PluginCordova.finishAuth();
