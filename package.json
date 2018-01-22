@@ -1,6 +1,6 @@
 {
   "name": "@saphocom/auth0-plugin-cordova",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "auth0.js plugin for auth flow handling in Cordova environment.",
   "keywords": [
     "auth0",
